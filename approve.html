@@ -3,40 +3,29 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NutriVerità — Approva post</title>
+<title>NutriVerità — Modifica post</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --gold: #D4A030;
-    --gold-border: rgba(212,160,48,0.25);
-    --bg: #0a0905;
-    --surface: #111008;
-    --text: #f0ead8;
-    --text-dim: rgba(240,234,216,0.5);
-    --green: #4caf7d;
-    --red: #e05a5a;
-  }
+  :root { --gold:#D4A030; --gold-border:rgba(212,160,48,0.25); --bg:#0a0905; --surface:#111008; --text:#f0ead8; --text-dim:rgba(240,234,216,0.5); --green:#4caf7d; --red:#e05a5a; }
   * { margin:0; padding:0; box-sizing:border-box; }
   body { background:var(--bg); color:var(--text); font-family:'DM Sans',sans-serif; min-height:100vh; padding:40px 20px; }
   .wrap { max-width:640px; margin:0 auto; }
   .logo { font-family:'Playfair Display',serif; font-size:24px; color:var(--gold); margin-bottom:4px; }
   .handle { font-size:11px; letter-spacing:0.2em; color:var(--text-dim); margin-bottom:32px; }
   h1 { font-family:'Playfair Display',serif; font-size:28px; margin-bottom:8px; }
-  .subtitle { font-size:13px; color:var(--text-dim); margin-bottom:32px; }
+  .subtitle { font-size:13px; color:var(--text-dim); margin-bottom:28px; }
   .card { background:var(--surface); border:1px solid var(--gold-border); border-radius:6px; padding:20px; margin-bottom:16px; }
   .card-label { font-size:10px; letter-spacing:0.25em; text-transform:uppercase; color:var(--gold); margin-bottom:8px; }
-  .field { width:100%; background:#0a0905; border:1px solid var(--gold-border); border-radius:4px; padding:12px; color:var(--text); font-family:'DM Sans',sans-serif; font-size:13px; outline:none; transition:border-color 0.2s; resize:vertical; }
+  .field { width:100%; background:#0a0905; border:1px solid var(--gold-border); border-radius:4px; padding:12px; color:var(--text); font-family:'DM Sans',sans-serif; font-size:13px; outline:none; resize:vertical; }
   .field:focus { border-color:var(--gold); }
-  .btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:14px 28px; border-radius:4px; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; cursor:pointer; border:none; transition:all 0.2s; width:100%; margin-top:8px; }
+  .btn { display:flex; align-items:center; justify-content:center; gap:8px; padding:14px 28px; border-radius:4px; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; cursor:pointer; border:none; transition:all 0.2s; width:100%; margin-top:8px; }
   .btn-primary { background:var(--gold); color:#000; }
-  .btn-primary:hover { background:#e8b535; }
+  .btn-primary:hover:not(:disabled) { background:#e8b535; }
   .btn-primary:disabled { opacity:0.4; cursor:not-allowed; }
   .btn-outline { background:transparent; color:var(--text-dim); border:1px solid var(--gold-border); }
-  .status { padding:14px; border-radius:4px; font-size:13px; margin-top:16px; display:none; text-align:center; }
+  .status { padding:14px; border-radius:4px; font-size:13px; margin-top:16px; text-align:center; display:none; }
   .status.ok { background:rgba(76,175,125,0.1); border:1px solid var(--green); color:var(--green); display:block; }
   .status.err { background:rgba(224,90,90,0.1); border:1px solid var(--red); color:var(--red); display:block; }
-  .spinner { width:18px; height:18px; border:2px solid rgba(0,0,0,0.3); border-top-color:#000; border-radius:50%; animation:spin 0.7s linear infinite; }
-  @keyframes spin { to { transform:rotate(360deg); } }
 </style>
 </head>
 <body>
@@ -44,12 +33,12 @@
   <div class="logo">NutriVerità</div>
   <div class="handle">@LA.NUTRIVERITA</div>
 
-  <h1>Revisiona il post</h1>
-  <div class="subtitle" id="dateLabel">Modifica e pubblica su Instagram</div>
+  <h1>Modifica il post</h1>
+  <p class="subtitle">Cambia caption, hashtag o testi della grafica e pubblica</p>
 
   <div class="card">
     <div class="card-label">Argomento</div>
-    <div id="argomento" style="font-size:16px; font-weight:600; color:#fff;"></div>
+    <div id="argomentoLabel" style="font-size:16px; font-weight:600; color:#fff;"></div>
   </div>
 
   <div class="card">
@@ -63,74 +52,81 @@
   </div>
 
   <div class="card">
-    <div class="card-label">Titolo grafica</div>
-    <input class="field" type="text" id="titolo_grafica_riga1" placeholder="Riga 1" style="margin-bottom:8px;" />
-    <input class="field" type="text" id="titolo_highlight" placeholder="Parola in oro" style="margin-bottom:8px;" />
-    <input class="field" type="text" id="titolo_barrato" placeholder="Parola barrata (lascia vuoto se non serve)" />
+    <div class="card-label">Grafica del post</div>
+    <input class="field" type="text" id="badge" placeholder="Badge" style="margin-bottom:8px;">
+    <input class="field" type="text" id="titolo_grafica_riga1" placeholder="Riga 1 titolo" style="margin-bottom:8px;">
+    <input class="field" type="text" id="titolo_highlight" placeholder="Parola in oro" style="margin-bottom:8px;">
+    <input class="field" type="text" id="titolo_barrato" placeholder="Parola barrata (vuoto se non serve)" style="margin-bottom:8px;">
+    <textarea class="field" id="testo_grafica" rows="3" placeholder="Testo descrittivo nella grafica"></textarea>
   </div>
 
-  <button class="btn btn-primary" onclick="pubblica()" id="publishBtn">
-    🚀 Pubblica su Instagram
-  </button>
-  <button class="btn btn-outline" onclick="window.close()" style="margin-top:8px;">
-    Annulla
-  </button>
+  <button class="btn btn-primary" onclick="pubblica()" id="publishBtn">🚀 Pubblica su Instagram</button>
+  <button class="btn btn-outline" onclick="window.close()" style="margin-top:8px;">Annulla</button>
 
   <div class="status" id="status"></div>
 </div>
 
 <script>
-  // Leggi i parametri dall'URL
+  const WORKER_URL = 'https://telegram-publish-trigger.gianmarcotacchini.workers.dev';
+
   const params = new URLSearchParams(window.location.search);
   const postId = params.get('post_id') || '';
-  const webhookUrl = 'https://hook.eu1.make.com/mdpfq5v7fdebj39ry9d8ve9nucu2teva'; // <-- metti qui il webhook del scenario 3
+  const rawJson = params.get('raw_json') || '';
 
-  // Popola i campi
-  document.getElementById('caption').value = params.get('caption') || '';
-  document.getElementById('hashtags').value = params.get('hashtags') || '';
-  document.getElementById('argomento').textContent = params.get('argomento') || '';
-  document.getElementById('titolo_grafica_riga1').value = params.get('titolo_grafica_riga1') || '';
-  document.getElementById('titolo_highlight').value = params.get('titolo_highlight') || '';
-  document.getElementById('titolo_barrato').value = params.get('titolo_barrato') || '';
-  document.getElementById('dateLabel').textContent = 'Post del ' + new Date().toLocaleDateString('it-IT', {weekday:'long', day:'numeric', month:'long', year:'numeric'});
+  // Parse raw_json e popola i campi
+  try {
+    const data = JSON.parse(rawJson);
+    document.getElementById('argomentoLabel').textContent = data.argomento || '';
+    document.getElementById('caption').value = data.caption || '';
+    document.getElementById('hashtags').value = data.hashtags || '';
+    document.getElementById('badge').value = data.badge || '';
+    document.getElementById('titolo_grafica_riga1').value = data.titolo_grafica_riga1 || '';
+    document.getElementById('titolo_highlight').value = data.titolo_highlight || '';
+    document.getElementById('titolo_barrato').value = data.titolo_barrato || '';
+    document.getElementById('testo_grafica').value = data.testo_grafica || '';
+  } catch(e) {
+    console.warn('Parse raw_json fallito:', e);
+  }
 
   async function pubblica() {
     const btn = document.getElementById('publishBtn');
     const status = document.getElementById('status');
 
     btn.disabled = true;
-    btn.innerHTML = '<div class="spinner"></div> Pubblicando…';
-    status.className = 'status';
+    btn.textContent = 'Pubblicando...';
 
     const payload = {
       post_id: postId,
+      argomento: document.getElementById('argomentoLabel').textContent,
       caption: document.getElementById('caption').value,
       hashtags: document.getElementById('hashtags').value,
-      argomento: document.getElementById('argomento').textContent,
+      badge: document.getElementById('badge').value,
       titolo_grafica_riga1: document.getElementById('titolo_grafica_riga1').value,
       titolo_highlight: document.getElementById('titolo_highlight').value,
-      titolo_barrato: document.getElementById('titolo_barrato').value
+      titolo_barrato: document.getElementById('titolo_barrato').value,
+      testo_grafica: document.getElementById('testo_grafica').value
     };
 
     try {
-      const res = await fetch(webhookUrl, {
+      const res = await fetch(WORKER_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       });
 
-      if (res.ok) {
-        status.textContent = '🎉 Post pubblicato su @la.nutriverita!';
-        status.className = 'status ok';
-        btn.innerHTML = '✓ Pubblicato!';
-      } else {
-        throw new Error('HTTP ' + res.status);
-      }
+      const data = await res.json();
+      if (!data.ok) throw new Error(data.description || data.error || 'Errore worker');
+
+      status.textContent = '✓ Comando inviato! Controlla Telegram per la conferma di pubblicazione.';
+      status.className = 'status ok';
+      btn.textContent = '✓ Inviato';
+
     } catch(e) {
+      console.error(e);
       status.textContent = '⚠ Errore: ' + e.message;
       status.className = 'status err';
       btn.disabled = false;
-      btn.innerHTML = '🚀 Riprova';
+      btn.textContent = '🚀 Riprova';
     }
   }
 </script>
